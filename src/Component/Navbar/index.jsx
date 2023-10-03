@@ -1,7 +1,27 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+
 
 function Navbar() {
+  const [loggedin,setloggedin] = useState(false)
+
+  useEffect(()=>{
+    let token = localStorage.getItem("token")
+    if(!token){
+      setloggedin(false)
+    }
+    else{
+      setloggedin(true)
+    }
+  },[loggedin])
+
+  const Loggouthandler =(()=>{
+    localStorage.clear()
+    setloggedin(false)
+  })
+
+
   return (
     <>
       <nav
@@ -38,6 +58,18 @@ function Navbar() {
             </ul>
           </div>
         </div>
+        {
+          loggedin?(
+            <Link onClick={Loggouthandler} className="btn btn-danger">Logout</Link>
+
+          ):(
+            <Link to='/login' className="btn btn-primary">LogIn</Link>
+
+          )
+
+
+
+        }
       </nav>
     </>
   );

@@ -21,7 +21,7 @@ const Bookdetail = (props) => {
             <h1 className={styles.h1}>{title}</h1>
             <h2 className={styles.author}>{author}</h2>
             <p>{description}</p>
-            <Rating data={props.data} review={review} setreview={setreview} />
+            <Rating data={props.data} />
             <p>no review</p>
           </div>
         </div>

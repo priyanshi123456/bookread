@@ -6,13 +6,38 @@ import { Link } from "react-router-dom";
 import "./Style.css";
 
 const Registerpage = () => {
+  const [requestresponse, setrequestresponse] = useState({
+    textMessage: "",
+    alertClass: "",
+  });
   const initialValues = {
     firstname: "",
     email: "",
     mobile: "",
     password: "",
   };
-  const onSubmit = () => {};
+  const onSubmit = (values) => {
+    axios
+      .post(
+        "https://orca-app-jhg4l.ondigitalocean.app/api/auth/register",
+        values
+      )
+      .then(
+        (response) => {
+          setrequestresponse({
+            textMessage: response.data.message,
+            alertClass: "alert alert-success",
+          });
+        },
+        (error) => {
+          setrequestresponse({
+            textMessage: error.response.data.message,
+            alertClass: "alert alert-danger",
+          });
+        }
+      )
+      .catch((error) => console.log(error));
+  };
   const validationSchema = Yup.object({
     firstname: Yup.string().required("First name is required"),
     email: Yup.string()
@@ -34,13 +59,20 @@ const Registerpage = () => {
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <div className="wrapper">
+            <div className={requestresponse.alertClass}>
+              {requestresponse.textMessage}
+            </div>
             <h2>Register</h2>
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="">Firstname</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className={
+                    formik.touched.firstname && formik.errors.firstname
+                      ? "form-control is-invalid"
+                      : "form-control"
+                  }
                   name="firstname"
                   value={formik.values.firstname}
                   onChange={formik.handleChange}
@@ -54,7 +86,11 @@ const Registerpage = () => {
                 <label htmlFor="">Email</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className={
+                    formik.touched.email && formik.errors.email
+                      ? "form-control is-invalid"
+                      : "form-control"
+                  }
                   name="email"
                   value={formik.values.email}
                   onChange={formik.handleChange}
@@ -68,7 +104,11 @@ const Registerpage = () => {
                 <label htmlFor="">Mobile</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className={
+                    formik.touched.mobile && formik.errors.mobile
+                      ? "form-control is-invalid"
+                      : "form-control"
+                  }
                   name="mobile"
                   value={formik.values.mobile}
                   onChange={formik.handleChange}
@@ -82,7 +122,11 @@ const Registerpage = () => {
                 <label htmlFor="">Password</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className={
+                    formik.touched.password && formik.errors.password
+                      ? "form-control is-invalid"
+                      : "form-control"
+                  }
                   name="password"
                   value={formik.values.password}
                   onChange={formik.handleChange}

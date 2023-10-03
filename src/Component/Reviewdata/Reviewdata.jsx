@@ -9,7 +9,6 @@ const Reviewdata = (props)=>{
   // const handlereviewsubmit = ()=>{
   //   const newreview = {text:reviewtext}
   //   setreviews([...reviews,newreview]);
-  //   setreviews("")
   // }
 
   return(
@@ -29,8 +28,7 @@ const Reviewdata = (props)=>{
             <h3> write a review Review</h3>
            <p>what did you think write a review</p>
            <textarea placeholder='write a review'  cols="80" rows="6"></textarea>
-           <button className='btn btn-primary' style={{width:"75%",marginTop:"20px"}} type='submit'>Submit</button>
-          
+           <button className='btn btn-primary' style={{width:"75%",marginTop:"20px"}} type='submit'>Submit</button>        
           </div>
         </div>
       </div>
